@@ -22,6 +22,18 @@ android {
         versionName = "0.1.0"
     }
 
+    // Committed on purpose: every build (CI or local) signs with the same debug key,
+    // so a new APK installs over the old one and keeps your logs and settings.
+    // Standard Android debug credentials, not a secret. Don't use it for a Play release.
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
